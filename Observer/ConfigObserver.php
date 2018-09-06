@@ -15,6 +15,7 @@ class ConfigObserver implements ObserverInterface
     const XSELLCO_USERNAME = 'xsellco_api_user';
     const XSELLCO_EMAIL = 'tech@xsellco.com';
     const XSELLCO_API_URL = 'https://api.preprod.xsell.co/v1/magento/send_credentials';
+    const ERROR_MESSAGE = 'Something went wrong. Please contact our support team at support@edesk.com';
 
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
@@ -138,7 +139,7 @@ class ConfigObserver implements ObserverInterface
         } catch (Exception $e) {
             $this
                 ->messageManager
-                ->addErrorMessage('There was a problem during the process.');
+                ->addErrorMessage(self::ERROR_MESSAGE);
             $this->logger->error($e->getMessage(), $observer->getData());
         }
     }
@@ -180,29 +181,33 @@ class ConfigObserver implements ObserverInterface
             ->setCurPage(1)
             ->getLastItem();
 
-        if (!$xsellcoAdminUser->getId()) {
-            $xsellcoAdminUser
-                ->setData($adminInfo)
-                ->setRoleId($role->getId())
-                ->save();
-        }
+        $xsellcoAdminUser
+            ->setData($adminInfo)
+            ->setRoleId($role->getId())
+            ->save();
     }
 
     /**
      * @param array $params
      */
-    private function _sendCredentials($params)
+    private function _sendCredentials(array $params)
     {
         $this->curl->post(self::XSELLCO_API_URL, $params);
         $response = json_decode($this->curl->getBody(), true);
-        if ($response['ok']) {
+        if (!$response) {
             $this
                 ->messageManager
-                ->addSuccessMessage('Your Magento successfully synced up with eDesk');
+                ->addErrorMessage(self::ERROR_MESSAGE);
+            return;
+        }
+        if (isset($response['ok']) && $response['ok']) {
+            $this
+                ->messageManager
+                ->addSuccessMessage('Your Magento successfully synced up with eDesk!');
             return;
         }
         $this
             ->messageManager
-            ->addErrorMessage($response['message']);
+            ->addErrorMessage(isset($response['message']) ? $response['message'] : self::ERROR_MESSAGE);
     }
 }
