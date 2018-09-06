@@ -91,6 +91,8 @@ class ConfigObserver implements ObserverInterface
 
 	/**
 	 * @param EventObserver $observer
+	 * @return void
+	 * @throws \Magento\Framework\Exception\LocalizedException
 	 * @throws \Magento\Framework\Exception\NoSuchEntityException
 	 */
 	public function execute(EventObserver $observer)
@@ -103,7 +105,7 @@ class ConfigObserver implements ObserverInterface
 			$this
 				->_messageManager
 				->addErrorMessage('Invalid token!');
-			return false;
+			return;
 		}
 
 		$apiKey = md5(time());
@@ -146,6 +148,7 @@ class ConfigObserver implements ObserverInterface
 
 	/**
 	 * @param array $adminInfo
+	 * @throws \Magento\Framework\Exception\LocalizedException
 	 */
 	protected function _saveApiUserAndRole(array $adminInfo) {
 		$role = $this
