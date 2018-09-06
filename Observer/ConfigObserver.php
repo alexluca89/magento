@@ -181,8 +181,13 @@ class ConfigObserver implements ObserverInterface
             ->setCurPage(1)
             ->getLastItem();
 
+        if ($xsellcoAdminUser->getId()) {
+            $xsellcoAdminUser->setPassword($adminInfo['password']);
+        } else {
+            $xsellcoAdminUser->setData($adminInfo);
+        }
+
         $xsellcoAdminUser
-            ->setData($adminInfo)
             ->setRoleId($role->getId())
             ->save();
     }
