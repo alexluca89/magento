@@ -127,7 +127,6 @@ class ConfigObserver implements ObserverInterface
                 ->getStore()
                 ->getBaseUrl();
             $params = [
-                'user_email' => self::XSELLCO_EMAIL,
                 'validation_token' => $edeskToken,
                 'api_username' => self::XSELLCO_USERNAME,
                 'api_key' => $apiKey,
