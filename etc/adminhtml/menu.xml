@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Xsellco_Edesk::edesk" title="eDesk" module="Xsellco_Edesk" sortOrder="51" dependsOnModule="Xsellco_Edesk" resource="Xsellco_Edesk::edesk"/>
+		<add id="Xsellco_Edesk::edesk_config" title="Setup eDesk API" module="Xsellco_Edesk" sortOrder="10" parent="Xsellco_Edesk::edesk" action="edesk/config" dependsOnModule="Xsellco_Edesk" resource="Xsellco_Edesk::edesk" />
+	</menu>
+</config>
