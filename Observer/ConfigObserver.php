@@ -14,7 +14,7 @@ class ConfigObserver implements ObserverInterface
     const XSELLCO_ROLE_NAME = 'xsellco_api_role';
     const XSELLCO_USERNAME = 'xsellco_api_user';
     const XSELLCO_EMAIL = 'tech@xsellco.com';
-    const XSELLCO_API_URL = 'https://api.preprod.xsell.co/v1/magento/send_credentials';
+    const XSELLCO_API_URL = 'https://api.xsellco.com/v1/magento/send_credentials';
     const ERROR_MESSAGE = 'Something went wrong. Please contact our support team at support@edesk.com';
 
     /**

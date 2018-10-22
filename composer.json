@@ -7,9 +7,6 @@
 		"OSL-3.0",
 		"AFL-3.0"
 	],
-	"require": {
-		"magento/framework": "~2.0.3"
-	},
 	"autoload": {
 		"files": [ "registration.php" ],
 		"psr-4": {
